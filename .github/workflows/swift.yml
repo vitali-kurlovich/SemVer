@@ -18,3 +18,6 @@ jobs:
     - name: Run tests
       run: |
         xcodebuild -scheme SemVer test -enableCodeCoverage YES -parallel-testing-enabled YES
+        bash <(curl -s https://codecov.io/bash) -X xcodellvm
+      env:
+        CODECOV_TOKEN: 27403835-2528-4c01-8447-21010aec4caf
