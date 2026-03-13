@@ -33,13 +33,25 @@ struct PreReleaseTests {
         #expect(args.0 == args.1.description)
     }
 
-    @Test("Metadata throws", arguments: [
+    @Test("Invalid PreRelease", arguments: [
         "",
         "abc.$",
         "abc+",
         "01.3.7",
         "0.03.7",
         "x.7.z.092",
+        "0123",
+        "0123.0123",
+        "alpha_beta",
+        "alpha.",
+        "alpha..",
+        "alpha..1",
+        "alpha...1",
+        "alpha....1",
+        "alpha.....1",
+        "alpha......1",
+        "alpha.......1",
+
     ])
     func invalidPreRelease(_ string: String) throws {
         #expect(throws: VersionError.invalidPreReleaseFormat) {

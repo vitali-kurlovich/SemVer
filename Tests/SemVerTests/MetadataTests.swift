@@ -26,7 +26,7 @@ struct MetadataTests {
         #expect(args.0 == args.1.description)
     }
 
-    @Test("Metadata throws", arguments: [
+    @Test("Invalid Metadata", arguments: [
         "",
         "abc.$",
         "abc+",
