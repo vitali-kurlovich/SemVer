@@ -4,7 +4,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "SemVer",
+    name: "swift-semver",
+    platforms: [
+        .macOS(.v13),
+        .iOS(.v13),
+        .watchOS(.v6),
+        .tvOS(.v13),
+    ],
     products: [
         .library(
             name: "SemVer",
