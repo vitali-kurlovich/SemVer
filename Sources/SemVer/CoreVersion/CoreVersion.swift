@@ -25,3 +25,10 @@ extension CoreVersion: CustomStringConvertible {
         "\(major).\(minor).\(patch)"
     }
 }
+
+public extension CoreVersion {
+    init(_ string: String) throws {
+        let parser = VersionParser()
+        self = try parser.parseCoreVersion(string)
+    }
+}
