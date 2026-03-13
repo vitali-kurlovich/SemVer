@@ -2,6 +2,8 @@
 //  Created by Vitali Kurlovich on 12.03.26.
 //
 
+import Foundation
+
 public struct PreRelease: Sendable {
     public let value: Substring
 }
@@ -15,7 +17,7 @@ public extension PreRelease {
 
 extension PreRelease: Comparable {
     public static func < (lhs: PreRelease, rhs: PreRelease) -> Bool {
-        lhs.value < rhs.value
+        lhs.value.compare(rhs.value, options: [.numeric]) == .orderedAscending
     }
 }
 

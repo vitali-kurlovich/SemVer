@@ -159,11 +159,11 @@ extension VersionTests {
         (Version("1.0.0-alpha.1"), Version("1.0.0-alpha.beta")),
         (Version("1.0.0-alpha.beta"), Version("1.0.0-beta")),
         (Version("1.0.0-beta"), Version("1.0.0-beta.2")),
-        
-        // (Version("1.0.0-beta.2"), Version("1.0.0-beta.11")), // TODO: Compare string with numbers
-        
+
+        (Version("1.0.0-beta.2"), Version("1.0.0-beta.11")),
+
         (Version("1.0.0-beta.11"), Version("1.0.0-rc.1")),
-        (Version("1.0.0-rc.1"), Version("1.0.0")),
+        (Version("1.0.0-rc.1"), Version("1.0.0"))
     ])
     func compare(_ args: (Version, Version)) throws {
         #expect(args.0 < args.1)
