@@ -9,7 +9,6 @@ public struct Metadata: Sendable {
 public extension Metadata {
     init(_ string: String) throws {
         let parser = VersionParser()
-
         self = try parser.parseMetadata(string)
     }
 }
