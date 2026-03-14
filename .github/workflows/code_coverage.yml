@@ -19,9 +19,14 @@ jobs:
     - name: Run tests
       run: swift test --enable-code-coverage --verbose
 
+    - name: Test coverage
+      uses: maxep/spm-lcov-action@0.3.1
+      with:
+          output-file: ./coverage/lcov.info
+
     - name: Upload to Codecov
       uses: codecov/codecov-action@v5
       with:
-          directory: ./.build/debug/codecov/
+          directory: ./coverage/
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true # optional (default = false)
