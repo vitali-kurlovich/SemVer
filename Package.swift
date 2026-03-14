@@ -13,18 +13,18 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "SemVer",
-            targets: ["SemVer"]
+            name: "SemanticVersioning",
+            targets: ["SemanticVersioning"]
         ),
     ],
     targets: [
         .target(
-            name: "SemVer",
+            name: "SemanticVersioning",
             dependencies: []
         ),
         .testTarget(
-            name: "SemVerTests",
-            dependencies: ["SemVer"]
+            name: "SemanticVersioningTests",
+            dependencies: ["SemanticVersioning"]
         ),
     ]
 )
