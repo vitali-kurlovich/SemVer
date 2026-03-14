@@ -8,6 +8,8 @@ on:
 
 jobs:
   build:
+    env:
+      CODECOV_TOKEN : ${{ secrets.CODECOV_TOKEN }}
 
     name: Generate code coverage 
     runs-on: macos-latest
@@ -20,8 +22,4 @@ jobs:
       run: xcodebuild -scheme swift-semver test -destination 'platform=macOS' -enableCodeCoverage YES -parallel-testing-enabled YES build test
 
     - name: Upload to Codecov
-      uses: codecov/codecov-action@v5
-      with:
-          directory: ./.build/
-          token: ${{ secrets.CODECOV_TOKEN }}
-          verbose: true # optional (default = false)
+      run: bash <(curl -s https://codecov.io/bash) -X xcodellvm
