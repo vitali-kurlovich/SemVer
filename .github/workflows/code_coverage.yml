@@ -17,3 +17,6 @@ jobs:
     
     - name: Run tests
       run: swift test --enable-code-coverage
+
+    - name: Upload coverage reports to Codecov
+      run: bash <(curl -s https://codecov.io/bash) -X xcodellvm
