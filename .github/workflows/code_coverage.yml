@@ -17,7 +17,7 @@ jobs:
     - uses: SwiftyLab/setup-swift@latest
     
     - name: Run tests
-      run: swift test --enable-code-coverage
+      run: xcodebuild -scheme SemanticVersioning test -destination 'platform=macOS' -enableCodeCoverage YES -parallel-testing-enabled YES build test
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v5
