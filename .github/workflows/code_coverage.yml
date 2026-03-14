@@ -17,11 +17,12 @@ jobs:
     - uses: SwiftyLab/setup-swift@latest
     
     - name: Run tests
-      run: swift test --enable-code-coverage
+      run: swift test --enable-code-coverage --verbose
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v5
       with:
-          directory: .build
+          directory: ./.build/debug/codecov/
+          files: ./.build/debug/codecov/default.profdata, ./.build/debug/codecov/swift-semver.json
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true # optional (default = false)
