@@ -20,7 +20,7 @@ jobs:
       run: swift test --enable-code-coverage
 
     - name: Export Coverage files
-      run: xcrun llvm-cov export --format=lcov -instr-profile=.build/debug/codecov/default.profdata > codecov.lcov
+      run: xcrun llvm-cov export --format=lcov .build/debug/swift-semverPackageTests.xctest/Contents/MacOS/swift-semverPackageTests -instr-profile=.build/debug/codecov/default.profdata > codecov.lcov
 
 
     - name: Upload to Codecov
