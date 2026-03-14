@@ -1,23 +1,25 @@
-name: Swift
+name: Build and Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   build:
-
-    runs-on: macos-latest
-
+    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
+    - uses: SwiftyLab/setup-swift@latest
+    
     - name: Build
       run: swift build -v
+
     - name: Run tests
-      run: |
-        xcodebuild -scheme SemVer test -enableCodeCoverage YES -parallel-testing-enabled YES
-        bash <(curl -s https://codecov.io/bash) -X xcodellvm
-      env:
-        CODECOV_TOKEN: 27403835-2528-4c01-8447-21010aec4caf
+      run: swift test -v
