@@ -8,8 +8,6 @@ on:
 
 jobs:
   build:
-    env:
-      CODECOV_TOKEN : ${{ secrets.CODECOV_TOKEN }}
 
     name: Generate code coverage 
     runs-on: macos-latest
@@ -21,5 +19,13 @@ jobs:
     - name: Run tests
       run: swift test --enable-code-coverage
 
-    - name: Upload coverage reports to Codecov
-      run: bash <(curl -s https://codecov.io/bash) -X xcodellvm
+    - name: Test coverage
+      uses: maxep/spm-lcov-action@0.3.0
+      with:
+          output-file: ./coverage/lcov.info
+
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true # optional (default = false)
