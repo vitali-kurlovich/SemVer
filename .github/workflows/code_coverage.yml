@@ -20,12 +20,12 @@ jobs:
       run: swift test --enable-code-coverage
 
     - name: Export Coverage files
-      run: xcrun llvm-cov export --format=lcov .build/debug/swift-semverPackageTests.xctest/Contents/MacOS/swift-semverPackageTests -instr-profile=.build/debug/codecov/default.profdata > codecov.lcov
+      run: xcrun llvm-cov export --format=lcov -instr-profile=.build/debug/codecov/default.profdata > codecov.lcov
 
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v5
       with:
-          directory: ./.build/
+          files: codecov.lcov
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true # optional (default = false)
