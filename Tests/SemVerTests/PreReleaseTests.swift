@@ -62,7 +62,8 @@ struct PreReleaseTests {
     @Test("Compare",
           arguments: try [
               (PreRelease("alpha.1"), PreRelease("alpha.2")),
-              (PreRelease("alpha"), PreRelease("beta"))
+              (PreRelease("alpha"), PreRelease("beta")),
+              (PreRelease("alpha.9"), PreRelease("alpha.123"))
           ])
     func compare(_ args: (PreRelease, PreRelease)) throws {
         #expect(args.0 < args.1)

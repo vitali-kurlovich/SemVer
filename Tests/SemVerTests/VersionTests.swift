@@ -140,8 +140,8 @@ extension VersionTests {
         ("1.0.0-0A.is.legal", Version(major: 1, minor: 0, patch: 0,
                                       prerelease: PreRelease(value: "0A.is.legal"))),
 
-        ("999999999999999999.999999999999999999.99999999999999999",
-         Version(major: 999_999_999_999_999_999, minor: 999_999_999_999_999_999, patch: 99_999_999_999_999_999)),
+        ("9999999999999999999.999999999999999999.99999999999999999",
+         Version(major: 9_999_999_999_999_999_999, minor: 999_999_999_999_999_999, patch: 99_999_999_999_999_999)),
     ])
     func string(_ args: (String, Version)) throws {
         #expect(try Version(args.0) == args.1)

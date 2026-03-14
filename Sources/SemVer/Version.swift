@@ -16,7 +16,7 @@ public struct Version: Sendable {
 }
 
 public extension Version {
-    init(major: Int, minor: Int, patch: Int,
+    init(major: UInt64, minor: UInt64, patch: UInt64,
          prerelease: PreRelease? = nil,
          metadata: Metadata? = nil)
     {
@@ -34,15 +34,15 @@ public extension Version {
 }
 
 public extension Version {
-    var major: Int {
+    var major: UInt64 {
         core.major
     }
 
-    var minor: Int {
+    var minor: UInt64 {
         core.minor
     }
 
-    var patch: Int {
+    var patch: UInt64 {
         core.patch
     }
 }

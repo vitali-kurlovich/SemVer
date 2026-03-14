@@ -12,9 +12,9 @@ extension VersionParser {
             throw VersionError.invalidCoreVersionFormat
         }
 
-        let major = Int(result.major)!
-        let minor = Int(result.minor)!
-        let patch = Int(result.patch)!
+        let major = UInt64(result.major)!
+        let minor = UInt64(result.minor)!
+        let patch = UInt64(result.patch)!
 
         return CoreVersion(major: major, minor: minor, patch: patch)
     }

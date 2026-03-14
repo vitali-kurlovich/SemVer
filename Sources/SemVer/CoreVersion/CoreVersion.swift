@@ -3,11 +3,11 @@
 //
 
 public struct CoreVersion: Sendable {
-    public let major: Int
-    public let minor: Int
-    public let patch: Int
+    public let major: UInt64
+    public let minor: UInt64
+    public let patch: UInt64
 
-    public init(major: Int, minor: Int, patch: Int) {
+    public init(major: UInt64 = 0, minor: UInt64 = 0, patch: UInt64 = 0) {
         self.major = major
         self.minor = minor
         self.patch = patch
