@@ -8,6 +8,8 @@ on:
 
 jobs:
   build:
+    env:
+      CODECOV_TOKEN : ${{ secrets.CODECOV_TOKEN }}
 
     name: Generate code coverage 
     runs-on: macos-latest
@@ -22,6 +24,9 @@ jobs:
     - name: Export Coverage files
       run: xcrun llvm-cov export --format=lcov .build/debug/swift-semverPackageTests.xctest/Contents/MacOS/swift-semverPackageTests -instr-profile=.build/debug/codecov/default.profdata > codecov.lcov
 
+
+    - name: Upload coverage to Codecov
+      run: bash <(curl -s https://codecov.io/bash)
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v5
