@@ -2,7 +2,7 @@
 //  Created by Vitali Kurlovich on 13.03.26.
 //
 
-@testable import SemVer
+@testable import SemanticVersioning
 import Testing
 
 @Suite("CoreVersion")

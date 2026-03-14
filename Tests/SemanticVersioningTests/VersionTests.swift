@@ -1,4 +1,4 @@
-@testable import SemVer
+@testable import SemanticVersioning
 import Testing
 
 @Suite("Version")
