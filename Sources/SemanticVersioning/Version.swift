@@ -20,9 +20,9 @@ public extension Version {
          prerelease: PreRelease? = nil,
          metadata: Metadata? = nil)
     {
-        let core = CoreVersion(major: major, minor: minor, patch: patch)
-
-        self.init(core, prerelease: prerelease, metadata: metadata)
+        self.init(CoreVersion(major: major, minor: minor, patch: patch),
+                  prerelease: prerelease,
+                  metadata: metadata)
     }
 }
 
@@ -74,16 +74,7 @@ extension Version: Comparable {
 
 extension Version: CustomStringConvertible {
     public var description: String {
-        var string = core.description
-
-        if let prerelease {
-            string.append("-\(prerelease.description)")
-        }
-
-        if let metadata {
-            string.append("+\(metadata.description)")
-        }
-
-        return string
+        let converter = VersionString()
+        return converter.string(from: self)
     }
 }

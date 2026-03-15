@@ -17,6 +17,7 @@ extension Metadata: Equatable {}
 
 extension Metadata: CustomStringConvertible {
     public var description: String {
-        value.description
+        let converter = VersionString()
+        return converter.string(from: self)
     }
 }

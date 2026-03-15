@@ -170,3 +170,51 @@ extension VersionTests {
         #expect(args.1 > args.0)
     }
 }
+
+extension VersionTests {
+    @Test("Equalk", arguments: try [
+        (Version("1.0.0"), Version("1.0.0")),
+        (Version("2.1.0"), Version("2.1.0")),
+        (Version("2.1.3"), Version("2.1.3")),
+
+        (Version("2.1.3"), Version("2.1.3+meta")),
+
+        (Version("1.0.0-alpha"), Version("1.0.0-alpha")),
+
+        (Version("1.0.0-alpha"), Version("1.0.0-alpha+meta")),
+        (Version("1.0.0-alpha+meta"), Version("1.0.0-alpha+meta"))
+
+    ])
+    func equal(_ args: (Version, Version)) throws {
+        #expect(args.0 == args.1)
+    }
+}
+
+extension VersionTests {
+    @Test("Formatting", arguments: try [
+        (Version("1.0.0"), VersionFormatStyle.full, "1.0.0"),
+        (Version("1.0.0"), VersionFormatStyle.medium, "1.0.0"),
+        (Version("1.0.0"), VersionFormatStyle.short, "1.0.0"),
+
+        (Version("1.0.0-alpha.1"), VersionFormatStyle.full, "1.0.0-alpha.1"),
+        (Version("1.0.0-alpha.1"), VersionFormatStyle.medium, "1.0.0-alpha.1"),
+        (Version("1.0.0-alpha.1"), VersionFormatStyle.short, "1.0.0"),
+
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle.full, "1.0.0-alpha.1+meta"),
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle.medium, "1.0.0-alpha.1"),
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle.short, "1.0.0"),
+
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle(options: [.preRelease]), "alpha.1"),
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle(options: [.preRelease, .metadata]), "alpha.1+meta"),
+
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle(options: [.coreVersion, .metadata]), "1.0.0+meta"),
+
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle(options: [.metadata]), "meta")
+
+    ])
+    func formatted(_ args: (Version, VersionFormatStyle, String)) {
+        #expect(args.0.formatted(args.1) == args.2)
+
+        #expect(args.0.formatted() == args.0.formatted(.full))
+    }
+}

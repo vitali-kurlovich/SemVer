@@ -23,6 +23,7 @@ extension PreRelease: Comparable {
 
 extension PreRelease: CustomStringConvertible {
     public var description: String {
-        value.description
+        let converter = VersionString()
+        return converter.string(from: self)
     }
 }
