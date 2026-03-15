@@ -78,3 +78,20 @@ extension Version: CustomStringConvertible {
         return converter.string(from: self)
     }
 }
+
+extension Version: Encodable {
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        let converter = VersionString()
+        let string = converter.string(from: self)
+        try container.encode(string)
+    }
+}
+
+extension Version: Decodable {
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+        try self.init(string)
+    }
+}

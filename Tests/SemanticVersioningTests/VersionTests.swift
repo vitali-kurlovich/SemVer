@@ -1,3 +1,4 @@
+import Foundation
 @testable import SemanticVersioning
 import Testing
 
@@ -216,5 +217,24 @@ extension VersionTests {
         #expect(args.0.formatted(args.1) == args.2)
 
         #expect(args.0.formatted() == args.0.formatted(.medium))
+    }
+}
+
+extension VersionTests {
+    @Test("Codable", arguments: try [
+        Version("1.2.3"),
+        Version("1.2.3-alpha"),
+        Version("1.2.3-alpha+meta"),
+        Version("1.2.3+meta")
+    ])
+    func codable(_ version: Version) throws {
+        let encoder = JSONEncoder()
+
+        let data = try encoder.encode(version)
+
+        let decoder = JSONDecoder()
+        let result = try decoder.decode(Version.self, from: data)
+
+        #expect(version == result)
     }
 }
