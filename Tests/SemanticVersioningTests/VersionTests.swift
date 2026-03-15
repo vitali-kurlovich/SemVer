@@ -215,6 +215,6 @@ extension VersionTests {
     func formatted(_ args: (Version, VersionFormatStyle, String)) {
         #expect(args.0.formatted(args.1) == args.2)
 
-        #expect(args.0.formatted() == args.0.formatted(.full))
+        #expect(args.0.formatted() == args.0.formatted(.medium))
     }
 }

@@ -12,7 +12,7 @@ public extension Version {
 
 public extension Version {
     func formatted() -> String {
-        formatted(.full)
+        formatted(.medium)
     }
 }
 
@@ -56,13 +56,15 @@ public extension VersionFormatStyle {
         public init(rawValue: UInt8) {
             self.rawValue = rawValue
         }
-
-        static var coreVersion: Self { VersionFormatStyle.Options(rawValue: 1 << 0) }
-        static var preRelease: Self { VersionFormatStyle.Options(rawValue: 1 << 1) }
-        static var metadata: Self { VersionFormatStyle.Options(rawValue: 1 << 2) }
-
-        static var full: Self { [.coreVersion, .preRelease, .metadata] }
-        static var medium: Self { [.coreVersion, .preRelease] }
-        static var short: Self { [.coreVersion] }
     }
+}
+
+public extension VersionFormatStyle.Options {
+    static var coreVersion: Self { VersionFormatStyle.Options(rawValue: 1 << 0) }
+    static var preRelease: Self { VersionFormatStyle.Options(rawValue: 1 << 1) }
+    static var metadata: Self { VersionFormatStyle.Options(rawValue: 1 << 2) }
+
+    static var full: Self { [.coreVersion, .preRelease, .metadata] }
+    static var medium: Self { [.coreVersion, .preRelease] }
+    static var short: Self { [.coreVersion] }
 }
