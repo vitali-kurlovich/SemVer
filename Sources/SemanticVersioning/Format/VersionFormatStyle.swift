@@ -18,7 +18,11 @@ public extension Version {
     }
 }
 
-/// ``Foundation/FormatStyle`` for formatting ``Version`` into the `String`
+/// FormatStyle for formatting ``Version`` into the String
+///
+///  - ``Foundation/FormatStyle/full``
+///  - ``Foundation/FormatStyle/medium``
+///  - ``Foundation/FormatStyle/short``
 public struct VersionFormatStyle: FormatStyle, Sendable {
     public typealias FormatInput = Version
 

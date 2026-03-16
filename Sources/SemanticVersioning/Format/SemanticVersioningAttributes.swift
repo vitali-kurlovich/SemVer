@@ -9,6 +9,7 @@ public extension AttributeScopes {
         SemanticVersioningAttributes.self
     }
 
+    /// A type for using a ``Version`` format as an attribute.
     struct SemanticVersioningAttributes: AttributeScope {
         public let semantic: Self.SemanticVersionAttribute
 
