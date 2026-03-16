@@ -7,7 +7,7 @@ public struct Metadata: Hashable, Sendable {
 }
 
 public extension Metadata {
-    init(_ string: String) throws {
+    init(_ string: String) throws(VersionError) {
         let parser = VersionParser()
         self = try parser.parseMetadata(string)
     }

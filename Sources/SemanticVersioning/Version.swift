@@ -27,7 +27,7 @@ public extension Version {
 }
 
 public extension Version {
-    init(_ string: String) throws {
+    init(_ string: String) throws(VersionError) {
         let parser = VersionParser()
         self = try parser.parse(string)
     }

@@ -27,7 +27,7 @@ extension CoreVersion: CustomStringConvertible {
 }
 
 public extension CoreVersion {
-    init(_ string: String) throws {
+    init(_ string: String) throws(VersionError) {
         let parser = VersionParser()
         self = try parser.parseCoreVersion(string)
     }

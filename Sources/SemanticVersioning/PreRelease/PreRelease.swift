@@ -9,7 +9,7 @@ public struct PreRelease: Hashable, Sendable {
 }
 
 public extension PreRelease {
-    init(_ string: String) throws {
+    init(_ string: String) throws(VersionError) {
         let parser = VersionParser()
         self = try parser.parsePreRelease(string)
     }
