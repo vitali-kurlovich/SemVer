@@ -173,25 +173,6 @@ extension VersionTests {
 }
 
 extension VersionTests {
-    @Test("Equalk", arguments: try [
-        (Version("1.0.0"), Version("1.0.0")),
-        (Version("2.1.0"), Version("2.1.0")),
-        (Version("2.1.3"), Version("2.1.3")),
-
-        (Version("2.1.3"), Version("2.1.3+meta")),
-
-        (Version("1.0.0-alpha"), Version("1.0.0-alpha")),
-
-        (Version("1.0.0-alpha"), Version("1.0.0-alpha+meta")),
-        (Version("1.0.0-alpha+meta"), Version("1.0.0-alpha+meta"))
-
-    ])
-    func equal(_ args: (Version, Version)) throws {
-        #expect(args.0 == args.1)
-    }
-}
-
-extension VersionTests {
     @Test("Formatting", arguments: try [
         (Version("1.0.0"), VersionFormatStyle.full, "1.0.0"),
         (Version("1.0.0"), VersionFormatStyle.medium, "1.0.0"),

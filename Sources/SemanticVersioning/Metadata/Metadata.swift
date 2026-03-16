@@ -2,7 +2,7 @@
 //  Created by Vitali Kurlovich on 12.03.26.
 //
 
-public struct Metadata: Sendable {
+public struct Metadata: Hashable, Sendable {
     public let value: Substring
 }
 
@@ -12,8 +12,6 @@ public extension Metadata {
         self = try parser.parseMetadata(string)
     }
 }
-
-extension Metadata: Equatable {}
 
 extension Metadata: CustomStringConvertible {
     public var description: String {

@@ -2,7 +2,7 @@
 //  Created by Vitali Kurlovich on 13.03.26.
 //
 
-public struct CoreVersion: Sendable {
+public struct CoreVersion: Hashable, Sendable {
     public let major: UInt64
     public let minor: UInt64
     public let patch: UInt64

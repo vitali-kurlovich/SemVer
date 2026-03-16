@@ -1,6 +1,6 @@
 
 
-public struct Version: Sendable {
+public struct Version: Hashable, Sendable {
     public let core: CoreVersion
     public let prerelease: PreRelease?
     public let metadata: Metadata?
@@ -44,12 +44,6 @@ public extension Version {
 
     var patch: UInt64 {
         core.patch
-    }
-}
-
-extension Version: Equatable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.core == rhs.core && lhs.prerelease == rhs.prerelease
     }
 }
 

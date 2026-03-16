@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct PreRelease: Sendable {
+public struct PreRelease: Hashable, Sendable {
     public let value: Substring
 }
 
