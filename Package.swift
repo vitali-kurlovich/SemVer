@@ -7,9 +7,9 @@ let package = Package(
     name: "swift-semver",
     platforms: [
         .macOS(.v13),
-        .iOS(.v13),
-        .watchOS(.v6),
-        .tvOS(.v13),
+        .iOS(.v16),
+        .watchOS(.v9),
+        .tvOS(.v16),
     ],
     products: [
         .library(
