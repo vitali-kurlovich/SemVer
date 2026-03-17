@@ -37,7 +37,7 @@ extension CoreVersionTests {
               "1.2.3+",
           ])
     func incorrectFormat(_ string: String) {
-        #expect(throws: VersionError.invalidCoreVersionFormat) {
+        #expect(throws: VersionError.invalidFormat) {
             try CoreVersion(string)
         }
     }

@@ -10,7 +10,7 @@ extension VersionParser {
             let match = try regexp.wholeMatch(in: string)
 
             guard let result = match?.output else {
-                throw VersionError.invalidMetadataFormat
+                throw VersionError.invalidFormat
             }
 
             return Metadata(value: result.1)

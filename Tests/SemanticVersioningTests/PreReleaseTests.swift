@@ -54,7 +54,7 @@ struct PreReleaseTests {
 
     ])
     func invalidPreRelease(_ string: String) throws {
-        #expect(throws: VersionError.invalidPreReleaseFormat) {
+        #expect(throws: VersionError.invalidFormat) {
             try PreRelease(string)
         }
     }

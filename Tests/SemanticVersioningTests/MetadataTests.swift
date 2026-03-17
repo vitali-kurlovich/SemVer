@@ -32,7 +32,7 @@ struct MetadataTests {
         "abc+",
     ])
     func invalidMetadata(_ string: String) throws {
-        #expect(throws: VersionError.invalidMetadataFormat) {
+        #expect(throws: VersionError.invalidFormat) {
             try Metadata(string)
         }
     }

@@ -9,7 +9,7 @@ extension VersionParser {
             let match = try regexp.wholeMatch(in: string)
 
             guard let result = match?.output else {
-                throw VersionError.invalidPreReleaseFormat
+                throw VersionError.invalidFormat
             }
 
             return PreRelease(value: result.1)

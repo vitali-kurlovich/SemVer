@@ -10,7 +10,7 @@ extension VersionParser {
             let match = try regexp.wholeMatch(in: string)
 
             guard let result = match?.output else {
-                throw VersionError.invalidCoreVersionFormat
+                throw VersionError.invalidFormat
             }
 
             let major = UInt64(result.major)!

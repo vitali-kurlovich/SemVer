@@ -4,9 +4,6 @@
 
 public enum VersionError: Error {
     case invalidFormat
-    case invalidCoreVersionFormat
-    case invalidPreReleaseFormat
-    case invalidMetadataFormat
 }
 
 extension VersionError: CustomStringConvertible {
@@ -14,12 +11,6 @@ extension VersionError: CustomStringConvertible {
         switch self {
         case .invalidFormat:
             return "Invalid format"
-        case .invalidCoreVersionFormat:
-            return "Invalid core-version format"
-        case .invalidPreReleaseFormat:
-            return "Invalid pre-release format"
-        case .invalidMetadataFormat:
-            return "Invalid metadata format"
         }
     }
 }
