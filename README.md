@@ -6,7 +6,7 @@
 
 # Semantic Versioning
 
- Swift implementation of [Semantic Versioning Specification](https://semver.org/)
+ Swift implementation of the [Semantic Versioning Specification](https://semver.org/)
 
  ## Features
  
