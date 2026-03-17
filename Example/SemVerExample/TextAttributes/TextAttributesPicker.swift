@@ -9,7 +9,7 @@ struct TextAttributesPicker: View {
     var textAttributes: TextAttributes
 
     @State
-    var intentEditorExpanded = true
+    var intentEditorExpanded = false
 
     init(_ textAttributes: Binding<TextAttributes>) {
         _textAttributes = textAttributes

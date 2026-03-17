@@ -13,27 +13,10 @@ struct VersionEditor: View {
     var coreVersionExpanded = false
 
     @State
-    var majorExpanded = false
-    @State
-    var minorExpanded = false
-    @State
-    var patchExpanded = false
-    @State
-    var coreVersionSeparatorExpanded = false
-
-    @State
     var preReleaseExpanded = false
-    @State
-    var preReleaseTextExpanded = false
-    @State
-    var preReleaseSeparatorExpanded = false
 
     @State
     var metadataExpanded = false
-    @State
-    var metadataTextExpanded = false
-    @State
-    var metadataSeparatorExpanded = false
 
     var body: some View {
         Form {
@@ -67,41 +50,15 @@ struct VersionEditor: View {
             }
 
             DisclosureGroup("Core Version", isExpanded: $coreVersionExpanded) {
-                TextAttributesPicker($model.coreVersion)
-
-                TextAttributesEditor("Major", $model.major, isExpanded: $majorExpanded)
-
-                TextAttributesEditor("Minor", $model.minor, isExpanded: $minorExpanded)
-
-                TextAttributesEditor("Patch", $model.patch, isExpanded: $patchExpanded)
-
-                TextAttributesEditor("Group Separator",
-                                     $model.coreVersionSeparator,
-                                     isExpanded: $coreVersionSeparatorExpanded)
+                CoreVersionEditor(model: $model)
             }
 
             DisclosureGroup("Pre-Release", isExpanded: $preReleaseExpanded) {
-                TextAttributesPicker($model.preRelease)
-
-                TextAttributesEditor("Pre-Release",
-                                     $model.preReleaseText,
-                                     isExpanded: $preReleaseTextExpanded)
-
-                TextAttributesEditor("Group Separator",
-                                     $model.preReleaseSeparator,
-                                     isExpanded: $preReleaseSeparatorExpanded)
+                PreReleaseEditor(model: $model)
             }
 
             DisclosureGroup("Metadata", isExpanded: $metadataExpanded) {
-                TextAttributesPicker($model.metadata)
-
-                TextAttributesEditor("Metadata",
-                                     $model.metadataText,
-                                     isExpanded: $metadataTextExpanded)
-
-                TextAttributesEditor("Group Separator",
-                                     $model.metadataSeparator,
-                                     isExpanded: $metadataSeparatorExpanded)
+                MetadataEditor(model: $model)
             }
         }
         .labeledContentStyle(LabeledVersionStyle())
