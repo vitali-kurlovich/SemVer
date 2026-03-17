@@ -1,7 +1,4 @@
 //
-//  InlinePresentationIntentEditor.swift
-//  swift-semver
-//
 //  Created by Vitali Kurlovich on 17.03.26.
 //
 
@@ -98,7 +95,6 @@ struct InlinePresentationIntentEditor: View {
     }
 }
 
-@available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)
 #Preview {
     @Previewable @State
     var intent: InlinePresentationIntent = []

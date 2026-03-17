@@ -1,7 +1,4 @@
 //
-//  TextAttributes.swift
-//  swift-semver
-//
 //  Created by Vitali Kurlovich on 16.03.26.
 //
 

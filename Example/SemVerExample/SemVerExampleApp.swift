@@ -1,7 +1,4 @@
 //
-//  SemVerExampleApp.swift
-//  SemVerExample
-//
 //  Created by Vitali Kurlovich on 17.03.26.
 //
 

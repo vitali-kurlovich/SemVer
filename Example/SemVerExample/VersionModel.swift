@@ -1,14 +1,10 @@
 //
-//  VersionModel.swift
-//  swift-semver
-//
 //  Created by Vitali Kurlovich on 16.03.26.
 //
 
 import SemanticVersioning
 import SwiftUI
 
-@available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)
 @Observable
 final class VersionModel {
     var inputText: String = "1.2.3-rc.1+demo"

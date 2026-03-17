@@ -1,14 +1,10 @@
 //
-//  VersionEditor.swift
-//  swift-semver
-//
 //  Created by Vitali Kurlovich on 16.03.26.
 //
 
 import SemanticVersioning
 import SwiftUI
 
-@available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)
 struct VersionEditor: View {
     @Binding
     var model: VersionModel
@@ -122,7 +118,6 @@ struct LabeledVersionStyle: LabeledContentStyle {
     }
 }
 
-@available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)
 #Preview {
     @Previewable @State var model = VersionModel()
     VersionEditor(model: $model)

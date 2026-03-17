@@ -25,14 +25,6 @@ struct TextAttributesPicker: View {
                 Toggle("Background Color", isOn: $textAttributes.backgroud.isEnabled)
             }
 
-            //  Toggle("InlinePresentation", isOn: $textAttributes.inlinePresentation.isEnabled.animation())
-
-            //  intentEditorExpanded
-
-            //  if textAttributes.inlinePresentation.isEnabled {
-            // InlinePresentationIntentEditor($textAttributes.inlinePresentation.intent).padding(.leading)
-            // }
-
             DisclosureGroup(isExpanded: $intentEditorExpanded) {
                 InlinePresentationIntentEditor($textAttributes.inlinePresentation.intent).padding(.leading)
                     .disabled(!textAttributes.inlinePresentation.isEnabled)
@@ -44,7 +36,6 @@ struct TextAttributesPicker: View {
     }
 }
 
-@available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)
 #Preview {
     @Previewable @State var textAttributes = TextAttributes()
     Form {
