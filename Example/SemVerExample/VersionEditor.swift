@@ -49,15 +49,15 @@ struct VersionEditor: View {
                 Text("Incorrect format")
             }
 
-            DisclosureGroup("Core Version", isExpanded: $coreVersionExpanded) {
+            SettingFormSheet(titleKey: "Core Version", isExpanded: $coreVersionExpanded) {
                 CoreVersionEditor(model: $model)
             }
 
-            DisclosureGroup("Pre-Release", isExpanded: $preReleaseExpanded) {
+            SettingFormSheet(titleKey: "Pre-Release", isExpanded: $preReleaseExpanded) {
                 PreReleaseEditor(model: $model)
             }
 
-            DisclosureGroup("Metadata", isExpanded: $metadataExpanded) {
+            SettingFormSheet(titleKey: "Metadata", isExpanded: $metadataExpanded) {
                 MetadataEditor(model: $model)
             }
         }
