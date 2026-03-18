@@ -9,20 +9,20 @@ import SwiftUI
 final class VersionModel {
     var inputText: String = "1.2.3-rc.1+demo"
 
-    var coreVersion = TextAttributes(backgroud: ColorAttribute(color: .indigo))
+    var coreVersion = TextAttributes(backgroud: ColorAttribute(color: .indigo, isEnabled: false))
 
     var major = TextAttributes(forgroud: ColorAttribute(color: .red))
     var minor = TextAttributes(forgroud: ColorAttribute(color: .green))
     var patch = TextAttributes(forgroud: ColorAttribute(color: .blue))
     var coreVersionSeparator = TextAttributes(forgroud: ColorAttribute(color: .accentColor))
 
-    var preRelease = TextAttributes()
-    var preReleaseText = TextAttributes()
-    var preReleaseSeparator = TextAttributes()
+    var preRelease = TextAttributes(forgroud: ColorAttribute(color: .pink))
+    var preReleaseText = TextAttributes(isEnabled: false)
+    var preReleaseSeparator = TextAttributes(isEnabled: false)
 
-    var metadata = TextAttributes()
-    var metadataText = TextAttributes()
-    var metadataSeparator = TextAttributes()
+    var metadata = TextAttributes(forgroud: ColorAttribute(color: .purple))
+    var metadataText = TextAttributes(isEnabled: false)
+    var metadataSeparator = TextAttributes(isEnabled: false)
 }
 
 @available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)

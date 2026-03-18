@@ -1,5 +1,5 @@
 //
-//  Created by Vitali Kurlovich on 16.03.26.
+//  Created by Vitali Kurlovich on 18.03.26.
 //
 
 import SemanticVersioning
@@ -8,6 +8,13 @@ import SwiftUI
 struct VersionEditor: View {
     @Binding
     var model: VersionModel
+
+    typealias FormatOptions = VersionFormatStyle.Options
+
+    @State var formatOptions: FormatOptions = [.coreVersion]
+
+    @State
+    var formatType: FormatType = .full
 
     @State
     var coreVersionExpanded = false
@@ -19,58 +26,64 @@ struct VersionEditor: View {
     var metadataExpanded = false
 
     var body: some View {
-        Form {
-            Section {
-                TextField("Version", text: $model.inputText)
-            }
+        NavigationStack {
+            Form {
+                VStack {
+                    if let version = model.version {
+                        Text(version, format: formatStyle)
 
-            if let version = model.version {
+                        let attributed = model.transform(version.formatted(formatStyle.attributed)
+                        )
+                        Text(attributed)
+                    }
+                }.padding()
+                    .frame(maxWidth: .infinity)
+                    .font(.largeTitle)
+                    .background {
+                        RoundedRectangle(cornerRadius: 12).fill(.thinMaterial)
+                    }
+
+                Section {
+                    TextField(text: $model.inputText,
+                              prompt: Text("Required"))
+                    {
+                        Text("Version")
+                    }
+                }
                 Section("Format") {
-                    LabeledContent(".full", value: version, format: .full)
-                    LabeledContent(".medium", value: version, format: .medium)
-                    LabeledContent(".short", value: version, format: .short)
+                    VersionFormatPicker(type: $formatType)
                 }
-
-                Section("Attributed") {
-                    LabeledContent(".full") {
-                        Text(model.transform(version.formatted(.full.attributed)))
+                Section {
+                    SettingFormSheet(titleKey: "Core Version", isExpanded: $coreVersionExpanded) {
+                        CoreVersionEditor(model: $model)
                     }
 
-                    LabeledContent(".medium") {
-                        Text(model.transform(version.formatted(.medium.attributed)))
+                    SettingFormSheet(titleKey: "Pre-Release", isExpanded: $preReleaseExpanded) {
+                        PreReleaseEditor(model: $model)
                     }
 
-                    LabeledContent(".short") {
-                        Text(model.transform(version.formatted(.short.attributed)))
+                    SettingFormSheet(titleKey: "Metadata", isExpanded: $metadataExpanded) {
+                        MetadataEditor(model: $model)
                     }
                 }
-
-            } else {
-                Text("Incorrect format")
-            }
-
-            SettingFormSheet(titleKey: "Core Version", isExpanded: $coreVersionExpanded) {
-                CoreVersionEditor(model: $model)
-            }
-
-            SettingFormSheet(titleKey: "Pre-Release", isExpanded: $preReleaseExpanded) {
-                PreReleaseEditor(model: $model)
-            }
-
-            SettingFormSheet(titleKey: "Metadata", isExpanded: $metadataExpanded) {
-                MetadataEditor(model: $model)
             }
         }
-        .labeledContentStyle(LabeledVersionStyle())
     }
 }
 
-struct LabeledVersionStyle: LabeledContentStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack {
-            configuration.label
-            Spacer()
-            configuration.content.font(.headline.bold())
+private extension VersionEditor {
+    var formatStyle: VersionFormatStyle {
+        debugPrint(formatType)
+
+        switch formatType {
+        case .full:
+            return .full
+        case .medium:
+            return .medium
+        case .short:
+            return .short
+        case let .custom(options):
+            return VersionFormatStyle(options: options)
         }
     }
 }
