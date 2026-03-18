@@ -30,7 +30,7 @@ struct SettingFormSheet<Content: View>: View {
                     Button(role: .close) {
                         isExpanded = false
                     }
-                }
+                }.navigationTitle(titleKey)
             }.presentationDetents([.medium, .large])
         }
     }

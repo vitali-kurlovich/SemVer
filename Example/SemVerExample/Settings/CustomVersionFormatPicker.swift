@@ -6,38 +6,40 @@ import SemanticVersioning
 import SwiftUI
 
 struct CustomVersionFormatPicker: View {
+    typealias Options = VersionFormatStyle.Options
+
     @Binding
-    var formatOptions: FormatOptions
+    var options: Options
 
     var body: some View {
         HStack {
             Toggle("Version", isOn: .init(get: {
-                formatOptions.contains(.coreVersion)
+                options.contains(.coreVersion)
             }, set: { flag in
                 if flag {
-                    formatOptions.insert(.coreVersion)
+                    options.insert(.coreVersion)
                 } else {
-                    formatOptions.remove(.coreVersion)
+                    options.remove(.coreVersion)
                 }
             }))
 
             Toggle("Pre-Release", isOn: .init(get: {
-                formatOptions.contains(.preRelease)
+                options.contains(.preRelease)
             }, set: { flag in
                 if flag {
-                    formatOptions.insert(.preRelease)
+                    options.insert(.preRelease)
                 } else {
-                    formatOptions.remove(.preRelease)
+                    options.remove(.preRelease)
                 }
             }))
 
             Toggle("Metadata", isOn: .init(get: {
-                formatOptions.contains(.metadata)
+                options.contains(.metadata)
             }, set: { flag in
                 if flag {
-                    formatOptions.insert(.metadata)
+                    options.insert(.metadata)
                 } else {
-                    formatOptions.remove(.metadata)
+                    options.remove(.metadata)
                 }
             }))
 
@@ -46,6 +48,6 @@ struct CustomVersionFormatPicker: View {
 }
 
 #Preview {
-    @Previewable @State var formatOptions: FormatOptions = [.coreVersion]
-    CustomVersionFormatPicker(formatOptions: $formatOptions)
+    @Previewable @State var options: VersionFormatStyle.Options = [.coreVersion]
+    CustomVersionFormatPicker(options: $options)
 }

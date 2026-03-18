@@ -9,12 +9,7 @@ struct VersionEditor: View {
     @Binding
     var model: VersionModel
 
-    typealias FormatOptions = VersionFormatStyle.Options
-
-    @State var formatOptions: FormatOptions = [.coreVersion]
-
-    @State
-    var formatType: FormatType = .full
+    @State var format: VersionFormat = .init()
 
     @State
     var coreVersionExpanded = false
@@ -51,7 +46,7 @@ struct VersionEditor: View {
                     }
                 }
                 Section("Format") {
-                    VersionFormatPicker(type: $formatType)
+                    VersionFormatPicker(format: $format)
                 }
                 Section {
                     SettingFormSheet(titleKey: "Core Version", isExpanded: $coreVersionExpanded) {
@@ -73,17 +68,15 @@ struct VersionEditor: View {
 
 private extension VersionEditor {
     var formatStyle: VersionFormatStyle {
-        debugPrint(formatType)
-
-        switch formatType {
+        switch format.type {
         case .full:
             return .full
         case .medium:
             return .medium
         case .short:
             return .short
-        case let .custom(options):
-            return VersionFormatStyle(options: options)
+        case .custom:
+            return VersionFormatStyle(options: format.options)
         }
     }
 }
