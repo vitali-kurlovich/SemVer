@@ -7,7 +7,7 @@ import SwiftUI
 
 @Observable
 final class VersionModel {
-    var inputText: String = "1.2.3-rc.1+demo"
+    var inputText: String = "Version: 1.2.3-rc.1+demo"
 
     var coreVersion = TextAttributes(backgroud: ColorAttribute(color: .indigo, isEnabled: false))
 
@@ -25,14 +25,41 @@ final class VersionModel {
     var metadataSeparator = TextAttributes(isEnabled: false)
 }
 
-@available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)
 extension VersionModel {
-    var version: Version? {
-        try? Version(inputText)
+    func formatted(format: VersionFormat) -> (String, AttributedString) {
+        let detector = VersionDetector()
+
+        let string = inputText
+
+        var startIndex = string.startIndex
+        let endIndex = string.endIndex
+
+        var result = ""
+
+        var attrResult = AttributedString()
+
+        let matches = detector.matches(in: string)
+
+        for match in matches {
+            let range = startIndex ..< match.range.lowerBound
+            result.append(String(string[range]))
+            attrResult.append(AttributedString(string[range]))
+
+            result.append(match.version.formatted(format.style))
+            attrResult.append(match.version.formatted(format.style.attributed))
+
+            startIndex = match.range.upperBound
+        }
+
+        let range = startIndex ..< endIndex
+
+        result.append(String(string[range]))
+        attrResult.append(AttributedString(string[range]))
+
+        return (result, transform(attrResult))
     }
 }
 
-@available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)
 extension VersionModel {
     func apply(_ attr: TextAttributes, string: inout AttributedSubstring) {
         guard attr.isEnabled else { return }

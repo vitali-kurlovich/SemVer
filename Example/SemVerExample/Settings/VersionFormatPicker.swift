@@ -2,22 +2,7 @@
 //  Created by Vitali Kurlovich on 18.03.26.
 //
 
-import SemanticVersioning
 import SwiftUI
-
-struct VersionFormat: Hashable {
-    typealias Options = VersionFormatStyle.Options
-
-    enum FormatType: Hashable {
-        case full
-        case medium
-        case short
-        case custom
-    }
-
-    var type: FormatType = .full
-    var options: Options = [.coreVersion]
-}
 
 struct VersionFormatPicker: View {
     typealias FormatType = VersionFormat.FormatType

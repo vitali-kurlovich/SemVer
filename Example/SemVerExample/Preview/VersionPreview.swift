@@ -13,37 +13,17 @@ struct VersionPreview: View {
 
     var body: some View {
         VStack {
-            if let version = model.version {
-                Text(version, format: formatStyle)
+            let (string, attributed) = model.formatted(format: format)
 
-                let attributed = model.transform(version.formatted(formatStyle.attributed)
-                )
-                Text(attributed)
-            } else {
-                Text("Invalid format")
-            }
+            Text(string)
+            Text(attributed)
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .font(.largeTitle)
+        .font(.title)
         .background {
             RoundedRectangle(cornerRadius: 12)
                 .fill(.thinMaterial)
-        }
-    }
-}
-
-private extension VersionPreview {
-    var formatStyle: VersionFormatStyle {
-        switch format.type {
-        case .full:
-            return .full
-        case .medium:
-            return .medium
-        case .short:
-            return .short
-        case .custom:
-            return VersionFormatStyle(options: format.options)
         }
     }
 }
