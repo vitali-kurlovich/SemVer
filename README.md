@@ -47,6 +47,14 @@ import SemanticVersioning
 let version = try? Version("1.2.3")
 ```
 
+
+ ## Example
+
+You can find the example app in [folder](https://github.com/vitali-kurlovich/swift-semver/tree/main/Example/SemVerExample)
  
+
+ <img width="790" height="578" alt="macos_screenshot" src="https://github.com/user-attachments/assets/6a3d9833-4ea9-4110-8c2c-c86d1843c455" />
+
+<img width="564" height="1062" alt="ios_screenshot" src="https://github.com/user-attachments/assets/d8f560d1-74c2-4fb3-95ea-1dc64b9da9e2" />
 
 
