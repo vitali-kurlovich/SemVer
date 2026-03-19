@@ -53,12 +53,9 @@ extension VersionAttributedString {
     func string(from version: CoreVersion) -> AttributedString {
         let separator = coreGroupSeparator
 
-        var string =
-            major(from: version) + separator +
+        return major(from: version) + separator +
             minor(from: version) + separator +
             patch(from: version)
-
-        return string
     }
 }
 

@@ -199,6 +199,88 @@ extension VersionTests {
 
         #expect(args.0.formatted() == args.0.formatted(.medium))
     }
+
+    @Test("Formatting Attributed")
+    func attr() throws {
+        let version = try Version("1.2.3-alpha.1+meta")
+
+        let arrtibuted = version.formatted(.full.attributed)
+
+        var semantic = ""
+        var coreVersion = ""
+
+        var major = ""
+        var minor = ""
+        var patch = ""
+
+        var coreSeparator = ""
+
+        var preRelease = ""
+        var preReleaseText = ""
+        var preReleaseSeparator = ""
+
+        var meta = ""
+        var metaText = ""
+        var metaSeparator = ""
+
+        for run in arrtibuted.runs {
+            if run.semanticVersioning.semantic != nil {
+                semantic += String(arrtibuted[run.range].characters)
+            }
+
+            if let part = run.semanticVersioning.versionPart {
+                coreVersion += String(arrtibuted[run.range].characters)
+
+                switch part {
+                case .major:
+                    major += String(arrtibuted[run.range].characters)
+                case .minor:
+                    minor += String(arrtibuted[run.range].characters)
+                case .patch:
+                    patch += String(arrtibuted[run.range].characters)
+                case .groupSeparator:
+                    coreSeparator += String(arrtibuted[run.range].characters)
+                }
+            }
+
+            if let part = run.semanticVersioning.preReleasePart {
+                preRelease += String(arrtibuted[run.range].characters)
+
+                switch part {
+                case .preRelease:
+                    preReleaseText += String(arrtibuted[run.range].characters)
+                case .groupSeparator:
+                    preReleaseSeparator += String(arrtibuted[run.range].characters)
+                }
+            }
+
+            if let part = run.semanticVersioning.metadataPart {
+                meta += String(arrtibuted[run.range].characters)
+
+                switch part {
+                case .metadata:
+                    metaText += String(arrtibuted[run.range].characters)
+                case .groupSeparator:
+                    metaSeparator += String(arrtibuted[run.range].characters)
+                }
+            }
+        }
+
+        #expect(semantic == "1.2.3-alpha.1+meta")
+        #expect(coreVersion == "1.2.3")
+        #expect(major == "1")
+        #expect(minor == "2")
+        #expect(patch == "3")
+        #expect(coreSeparator == "..")
+
+        #expect(preRelease == "-alpha.1")
+        #expect(preReleaseText == "alpha.1")
+        #expect(preReleaseSeparator == "-")
+
+        #expect(meta == "+meta")
+        #expect(metaText == "meta")
+        #expect(metaSeparator == "+")
+    }
 }
 
 extension VersionTests {
