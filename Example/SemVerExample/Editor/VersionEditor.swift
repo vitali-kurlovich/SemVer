@@ -10,8 +10,9 @@ struct VersionEditor: View {
 
     @State var format = VersionFormat()
 
-    @State var isInspectorPresented: Bool = true
-
+    #if os(macOS)
+        @State var isInspectorPresented: Bool = true
+    #endif
     var body: some View {
         NavigationStack {
             VStack {
