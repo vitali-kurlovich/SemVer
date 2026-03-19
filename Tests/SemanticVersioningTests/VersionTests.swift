@@ -57,6 +57,9 @@ extension VersionTests {
         "9.8.7+meta+meta",
         "9.8.7-whatever+meta+meta",
         "99999999999999999999999.999999999999999999.99999999999999999----RC-SNAPSHOT.12.09.1--------------------------------..12",
+        "W1.2.3-prerelease+meta",
+        "1.2.3-prerelease+meta#",
+        " 1.2.3-prerelease+meta ",
     ])
     func incorrect(_ string: String) {
         #expect(throws: VersionError.invalidFormat) {
@@ -146,6 +149,9 @@ extension VersionTests {
     ])
     func string(_ args: (String, Version)) throws {
         #expect(try Version(args.0) == args.1)
+
+        #expect(try Version(args.0[args.0.startIndex ..< args.0.endIndex]) == args.1)
+
         #expect(args.0 == args.1.description)
     }
 }

@@ -31,6 +31,11 @@ public extension Version {
         let parser = VersionParser()
         self = try parser.parse(string)
     }
+
+    init(_ string: Substring) throws(VersionError) {
+        let parser = VersionParser()
+        self = try parser.parse(string)
+    }
 }
 
 public extension Version {
