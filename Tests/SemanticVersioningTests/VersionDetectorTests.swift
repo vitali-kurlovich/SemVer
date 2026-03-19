@@ -2,7 +2,7 @@
 //  Created by Vitali Kurlovich on 19.03.26.
 //
 
-@testable import SemanticVersioning
+import SemanticVersioning
 import Testing
 
 @Suite("VersionDetector")
@@ -49,17 +49,27 @@ struct VersionDetectorTests {
         let result = try #require(detector.firstMatch(in: args.0))
 
         #expect(args.0[result.range] == args.1)
+    }
 
-        let subResult = try #require(detector.firstMatch(in: args.0[args.0.startIndex ..< args.0.endIndex]))
+    @Test("Matches", arguments: [
+        ("Begin 1.2.3-alpha+meta end", ["1.2.3-alpha+meta"]),
 
-        #expect(args.0[subResult.range] == args.1)
+        ("Begin 1.2.3-alpha+meta and 2.2.2-beta+rc end", ["1.2.3-alpha+meta", "2.2.2-beta+rc"]),
+        ("Begin 1.2 end", []),
+    ])
+    func matches(_ args: (String, [String])) throws {
+        let detector = VersionDetector()
+
+        let result = detector.matches(in: args.0).map { result in
+            String(args.0[result.range])
+        }
+
+        #expect(result == args.1)
     }
 
     @Test("No Matches", arguments: [
         "Begin 1.3-alpha+meta end",
         "Begin 1.02.3-alpha+meta end",
-
-        // "Begin 1.2.3+alpha+meta end"
     ])
     func noMatches(_ string: String) throws {
         let detector = VersionDetector()
