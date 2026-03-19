@@ -186,12 +186,12 @@ extension VersionTests {
         (Version("1.0.0-alpha.1+meta"), VersionFormatStyle.medium, "1.0.0-alpha.1"),
         (Version("1.0.0-alpha.1+meta"), VersionFormatStyle.short, "1.0.0"),
 
-        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle(options: [.preRelease]), "alpha.1"),
-        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle(options: [.preRelease, .metadata]), "alpha.1+meta"),
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle.custom([.preRelease]), "alpha.1"),
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle.custom([.preRelease, .metadata]), "alpha.1+meta"),
 
-        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle(options: [.coreVersion, .metadata]), "1.0.0+meta"),
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle.custom([.coreVersion, .metadata]), "1.0.0+meta"),
 
-        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle(options: [.metadata]), "meta")
+        (Version("1.0.0-alpha.1+meta"), VersionFormatStyle.custom([.metadata]), "meta")
 
     ])
     func formatted(_ args: (Version, VersionFormatStyle, String)) {
@@ -204,7 +204,7 @@ extension VersionTests {
     func attr() throws {
         let version = try Version("1.2.3-alpha.1+meta")
 
-        let arrtibuted = version.formatted(.full.attributed)
+        var arrtibuted = version.formatted(.full.attributed)
 
         var semantic = ""
         var coreVersion = ""
@@ -223,48 +223,52 @@ extension VersionTests {
         var metaText = ""
         var metaSeparator = ""
 
-        for run in arrtibuted.runs {
-            if run.semanticVersioning.semantic != nil {
-                semantic += String(arrtibuted[run.range].characters)
-            }
-
-            if let part = run.semanticVersioning.versionPart {
-                coreVersion += String(arrtibuted[run.range].characters)
-
-                switch part {
-                case .major:
-                    major += String(arrtibuted[run.range].characters)
-                case .minor:
-                    minor += String(arrtibuted[run.range].characters)
-                case .patch:
-                    patch += String(arrtibuted[run.range].characters)
-                case .groupSeparator:
-                    coreSeparator += String(arrtibuted[run.range].characters)
+        func fetchComponents() {
+            for run in arrtibuted.runs {
+                if run.semanticVersioning.semantic != nil {
+                    semantic += String(arrtibuted[run.range].characters)
                 }
-            }
 
-            if let part = run.semanticVersioning.preReleasePart {
-                preRelease += String(arrtibuted[run.range].characters)
+                if let part = run.semanticVersioning.versionPart {
+                    coreVersion += String(arrtibuted[run.range].characters)
 
-                switch part {
-                case .preRelease:
-                    preReleaseText += String(arrtibuted[run.range].characters)
-                case .groupSeparator:
-                    preReleaseSeparator += String(arrtibuted[run.range].characters)
+                    switch part {
+                    case .major:
+                        major += String(arrtibuted[run.range].characters)
+                    case .minor:
+                        minor += String(arrtibuted[run.range].characters)
+                    case .patch:
+                        patch += String(arrtibuted[run.range].characters)
+                    case .groupSeparator:
+                        coreSeparator += String(arrtibuted[run.range].characters)
+                    }
                 }
-            }
 
-            if let part = run.semanticVersioning.metadataPart {
-                meta += String(arrtibuted[run.range].characters)
+                if let part = run.semanticVersioning.preReleasePart {
+                    preRelease += String(arrtibuted[run.range].characters)
 
-                switch part {
-                case .metadata:
-                    metaText += String(arrtibuted[run.range].characters)
-                case .groupSeparator:
-                    metaSeparator += String(arrtibuted[run.range].characters)
+                    switch part {
+                    case .preRelease:
+                        preReleaseText += String(arrtibuted[run.range].characters)
+                    case .groupSeparator:
+                        preReleaseSeparator += String(arrtibuted[run.range].characters)
+                    }
+                }
+
+                if let part = run.semanticVersioning.metadataPart {
+                    meta += String(arrtibuted[run.range].characters)
+
+                    switch part {
+                    case .metadata:
+                        metaText += String(arrtibuted[run.range].characters)
+                    case .groupSeparator:
+                        metaSeparator += String(arrtibuted[run.range].characters)
+                    }
                 }
             }
         }
+
+        fetchComponents()
 
         #expect(semantic == "1.2.3-alpha.1+meta")
         #expect(coreVersion == "1.2.3")
@@ -280,6 +284,78 @@ extension VersionTests {
         #expect(meta == "+meta")
         #expect(metaText == "meta")
         #expect(metaSeparator == "+")
+
+        arrtibuted = version.formatted(.custom([.preRelease]).attributed)
+
+        semantic = ""
+        coreVersion = ""
+
+        major = ""
+        minor = ""
+        patch = ""
+
+        coreSeparator = ""
+
+        preRelease = ""
+        preReleaseText = ""
+        preReleaseSeparator = ""
+
+        meta = ""
+        metaText = ""
+        metaSeparator = ""
+
+        fetchComponents()
+
+        #expect(semantic == "alpha.1")
+        #expect(coreVersion.isEmpty)
+        #expect(major.isEmpty)
+        #expect(minor.isEmpty)
+        #expect(patch.isEmpty)
+        #expect(coreSeparator.isEmpty)
+
+        #expect(preRelease == "alpha.1")
+        #expect(preReleaseText == "alpha.1")
+        #expect(preReleaseSeparator.isEmpty)
+
+        #expect(meta.isEmpty)
+        #expect(metaText.isEmpty)
+        #expect(metaSeparator.isEmpty)
+
+        arrtibuted = version.formatted(.custom([.metadata]).attributed)
+
+        semantic = ""
+        coreVersion = ""
+
+        major = ""
+        minor = ""
+        patch = ""
+
+        coreSeparator = ""
+
+        preRelease = ""
+        preReleaseText = ""
+        preReleaseSeparator = ""
+
+        meta = ""
+        metaText = ""
+        metaSeparator = ""
+
+        fetchComponents()
+
+        #expect(semantic == "meta")
+        #expect(coreVersion.isEmpty)
+        #expect(major.isEmpty)
+        #expect(minor.isEmpty)
+        #expect(patch.isEmpty)
+        #expect(coreSeparator.isEmpty)
+
+        #expect(preRelease.isEmpty)
+        #expect(preReleaseText.isEmpty)
+        #expect(preReleaseSeparator.isEmpty)
+
+        #expect(meta == "meta")
+        #expect(metaText == "meta")
+        #expect(metaSeparator.isEmpty)
     }
 }
 

@@ -81,6 +81,19 @@ public extension FormatStyle where FormatInput == Version, FormatOutput == Strin
     static var short: VersionFormatStyle {
         VersionFormatStyle(options: .short)
     }
+
+    /**
+     ``VersionFormatStyle`` for displaying custom parts of ``Version`` components
+
+     ```swift
+     let version = try Version("1.2.3-alpha.1+meta")
+     version.formatted(.custom([.preRelease, .metadata]))
+     // "alpha.1+meta"
+     ```
+     */
+    static func custom(_ options: VersionFormatStyle.Options) -> VersionFormatStyle {
+        VersionFormatStyle(options: options)
+    }
 }
 
 public extension VersionFormatStyle {
