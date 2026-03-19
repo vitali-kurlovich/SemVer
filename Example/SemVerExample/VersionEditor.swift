@@ -2,82 +2,50 @@
 //  Created by Vitali Kurlovich on 18.03.26.
 //
 
-import SemanticVersioning
 import SwiftUI
 
 struct VersionEditor: View {
     @Binding
     var model: VersionModel
 
-    @State var format: VersionFormat = .init()
+    @State var format = VersionFormat()
 
-    @State
-    var coreVersionExpanded = false
-
-    @State
-    var preReleaseExpanded = false
-
-    @State
-    var metadataExpanded = false
+    @State var isInspectorPresented: Bool = true
 
     var body: some View {
         NavigationStack {
-            Form {
-                VStack {
-                    if let version = model.version {
-                        Text(version, format: formatStyle)
+            VStack {
+                VersionPreview(model: $model, format: format)
 
-                        let attributed = model.transform(version.formatted(formatStyle.attributed)
-                        )
-                        Text(attributed)
+                Form {
+                    Section {
+                        TextField(text: $model.inputText,
+                                  prompt: Text("Text in the Semantic Versioning format"))
+                        {
+                            Text("Version")
+                        }
                     }
-                }.padding()
-                    .frame(maxWidth: .infinity)
-                    .font(.largeTitle)
-                    .background {
-                        RoundedRectangle(cornerRadius: 12).fill(.thinMaterial)
+                    Section {
+                        VersionFormatPicker(format: $format)
                     }
-
-                Section {
-                    TextField(text: $model.inputText,
-                              prompt: Text("Required"))
-                    {
-                        Text("Version")
-                    }
+                    #if os(iOS)
+                        Section {
+                            VersionSettings(model: $model)
+                        }
+                    #endif
                 }
-                Section("Format") {
-                    VersionFormatPicker(format: $format)
-                }
-                Section {
-                    SettingFormSheet(titleKey: "Core Version", isExpanded: $coreVersionExpanded) {
-                        CoreVersionEditor(model: $model)
-                    }
-
-                    SettingFormSheet(titleKey: "Pre-Release", isExpanded: $preReleaseExpanded) {
-                        PreReleaseEditor(model: $model)
-                    }
-
-                    SettingFormSheet(titleKey: "Metadata", isExpanded: $metadataExpanded) {
-                        MetadataEditor(model: $model)
-                    }
+                Spacer()
+            }
+        }
+        #if os(macOS)
+        .inspector(isPresented: $isInspectorPresented) {
+            NavigationStack {
+                Form {
+                    VersionSettings(model: $model)
                 }
             }
         }
-    }
-}
-
-private extension VersionEditor {
-    var formatStyle: VersionFormatStyle {
-        switch format.type {
-        case .full:
-            return .full
-        case .medium:
-            return .medium
-        case .short:
-            return .short
-        case .custom:
-            return VersionFormatStyle(options: format.options)
-        }
+        #endif
     }
 }
 

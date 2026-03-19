@@ -27,7 +27,7 @@ struct VersionFormatPicker: View {
 
     var body: some View {
         VStack {
-            Picker("Format", selection: $format.type) {
+            Picker("Format Style", selection: $format.type) {
                 Text("Full").tag(FormatType.full)
                 Text("Medium").tag(FormatType.medium)
                 Text("Short").tag(FormatType.short)
