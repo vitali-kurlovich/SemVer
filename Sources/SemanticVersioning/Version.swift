@@ -1,5 +1,9 @@
 
+/**
+ Version number
 
+ for more info read [Semantic Versioning](https://semver.org/)
+ */
 public struct Version: Hashable, Sendable {
     public let core: CoreVersion
     public let prerelease: PreRelease?
