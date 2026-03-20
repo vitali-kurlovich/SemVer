@@ -5,11 +5,11 @@
  for more info read [Semantic Versioning](https://semver.org/)
  */
 public struct Version: Hashable, Sendable {
-    public let core: CoreVersion
+    public let core: VersionCore
     public let prerelease: PreRelease?
     public let metadata: Metadata?
 
-    public init(_ core: CoreVersion,
+    public init(_ core: VersionCore,
                 prerelease: PreRelease? = nil,
                 metadata: Metadata? = nil)
     {
@@ -24,7 +24,7 @@ public extension Version {
          prerelease: PreRelease? = nil,
          metadata: Metadata? = nil)
     {
-        self.init(CoreVersion(major: major, minor: minor, patch: patch),
+        self.init(VersionCore(major: major, minor: minor, patch: patch),
                   prerelease: prerelease,
                   metadata: metadata)
     }
@@ -43,14 +43,17 @@ public extension Version {
 }
 
 public extension Version {
+    /// Version core MAJOR part
     var major: UInt64 {
         core.major
     }
 
+    /// Version core MINOR part
     var minor: UInt64 {
         core.minor
     }
 
+    /// Version core PATCH part
     var patch: UInt64 {
         core.patch
     }

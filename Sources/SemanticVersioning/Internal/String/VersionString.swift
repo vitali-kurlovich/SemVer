@@ -4,6 +4,8 @@
 
 struct VersionString {
     init() {}
+
+    typealias VersionCore = Version.VersionCore
 }
 
 extension VersionString {
@@ -11,7 +13,7 @@ extension VersionString {
         string(core: version.core, prerelease: version.prerelease, metadata: version.metadata)
     }
 
-    func string(core: CoreVersion?, prerelease: PreRelease?, metadata: Metadata?) -> String {
+    func string(core: VersionCore?, prerelease: PreRelease?, metadata: Metadata?) -> String {
         var string = ""
         if let core {
             string = self.string(from: core)
@@ -38,7 +40,7 @@ extension VersionString {
 }
 
 extension VersionString {
-    func string(from version: CoreVersion) -> String {
+    func string(from version: VersionCore) -> String {
         "\(version.major).\(version.minor).\(version.patch)"
     }
 }

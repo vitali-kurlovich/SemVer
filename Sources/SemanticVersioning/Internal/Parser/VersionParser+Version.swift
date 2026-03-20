@@ -66,7 +66,7 @@ extension VersionParser {
         let minor = UInt64(result.minor)!
         let patch = UInt64(result.patch)!
 
-        let coreVersion = CoreVersion(major: major, minor: minor, patch: patch)
+        let coreVersion = VersionCore(major: major, minor: minor, patch: patch)
 
         let prerelease: PreRelease?
         if let value = result.prerelease {

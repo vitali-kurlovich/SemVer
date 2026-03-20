@@ -4,20 +4,6 @@
 
 import Foundation
 
-public extension Version {
-    /// Format ``Version`` using style
-    func formatted<S>(_ style: S) -> S.FormatOutput where Self == S.FormatInput, S: FormatStyle {
-        style.format(self)
-    }
-}
-
-public extension Version {
-    /// Format ``Version`` using  ``Foundation/FormatStyle/medium`` style
-    func formatted() -> String {
-        formatted(.medium)
-    }
-}
-
 /// FormatStyle for formatting ``Version`` into the String
 ///
 ///  - ``Foundation/FormatStyle/full``

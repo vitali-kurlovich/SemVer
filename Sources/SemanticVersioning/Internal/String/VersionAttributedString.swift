@@ -6,6 +6,8 @@ import Foundation
 
 struct VersionAttributedString {
     init() {}
+
+    typealias VersionCore = Version.VersionCore
 }
 
 extension VersionAttributedString {
@@ -22,7 +24,7 @@ extension VersionAttributedString {
         string(core: version.core, prerelease: version.prerelease, metadata: version.metadata)
     }
 
-    func string(core: CoreVersion?, prerelease: PreRelease?, metadata: Metadata?) -> AttributedString {
+    func string(core: VersionCore?, prerelease: PreRelease?, metadata: Metadata?) -> AttributedString {
         var string = AttributedString("")
         var isEmpty = true
         if let core {
@@ -50,7 +52,7 @@ extension VersionAttributedString {
 }
 
 extension VersionAttributedString {
-    func string(from version: CoreVersion) -> AttributedString {
+    func string(from version: VersionCore) -> AttributedString {
         let separator = coreGroupSeparator
 
         return major(from: version) + separator +
@@ -80,7 +82,7 @@ private extension VersionAttributedString {
 }
 
 private extension VersionAttributedString {
-    func major(from version: CoreVersion) -> AttributedString {
+    func major(from version: VersionCore) -> AttributedString {
         var attributes = AttributeContainer()
         attributes[CoreVersionPartAttribute.self] = .major
 
@@ -88,7 +90,7 @@ private extension VersionAttributedString {
                                 attributes: attributes)
     }
 
-    func minor(from version: CoreVersion) -> AttributedString {
+    func minor(from version: VersionCore) -> AttributedString {
         var attributes = AttributeContainer()
         attributes[CoreVersionPartAttribute.self] = .minor
 
@@ -96,7 +98,7 @@ private extension VersionAttributedString {
                                 attributes: attributes)
     }
 
-    func patch(from version: CoreVersion) -> AttributedString {
+    func patch(from version: VersionCore) -> AttributedString {
         var attributes = AttributeContainer()
         attributes[CoreVersionPartAttribute.self] = .patch
 

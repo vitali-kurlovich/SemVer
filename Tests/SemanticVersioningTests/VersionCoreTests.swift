@@ -2,25 +2,27 @@
 //  Created by Vitali Kurlovich on 13.03.26.
 //
 
-@testable import SemanticVersioning
+import SemanticVersioning
 import Testing
 
-@Suite("CoreVersion")
-struct CoreVersionTests {}
+typealias VersionCore = Version.VersionCore
 
-extension CoreVersionTests {
+@Suite("VersionCore")
+struct VersionCoreTests {}
+
+extension VersionCoreTests {
     @Test("Convert string",
           arguments: [
-              ("1.2.3", CoreVersion(major: 1, minor: 2, patch: 3)),
-              ("1.2.0", CoreVersion(major: 1, minor: 2, patch: 0)),
-              ("1.0.0", CoreVersion(major: 1, minor: 0, patch: 0)),
+              ("1.2.3", VersionCore(major: 1, minor: 2, patch: 3)),
+              ("1.2.0", VersionCore(major: 1, minor: 2, patch: 0)),
+              ("1.0.0", VersionCore(major: 1, minor: 0, patch: 0)),
           ])
-    func coreVersion(_ args: (String, CoreVersion)) throws {
-        #expect(try CoreVersion(args.0) == args.1)
+    func coreVersion(_ args: (String, VersionCore)) throws {
+        #expect(try VersionCore(args.0) == args.1)
         #expect(args.0 == args.1.description)
     }
 
-    @Test("Invalid core version",
+    @Test("Invalid version core",
           arguments: [
               "",
               "1",
@@ -38,7 +40,7 @@ extension CoreVersionTests {
           ])
     func incorrectFormat(_ string: String) {
         #expect(throws: VersionError.invalidFormat) {
-            try CoreVersion(string)
+            try VersionCore(string)
         }
     }
 
@@ -62,8 +64,8 @@ extension CoreVersionTests {
               ("2.4.4", "3.0.0"),
           ])
     func compare(_ args: (String, String)) throws {
-        let left = try CoreVersion(args.0)
-        let right = try CoreVersion(args.1)
+        let left = try VersionCore(args.0)
+        let right = try VersionCore(args.1)
 
         #expect(left < right)
         #expect(right > left)
@@ -77,9 +79,9 @@ extension CoreVersionTests {
 
     @Test("Compare")
     func equal() {
-        #expect(CoreVersion(major: 9, minor: 8, patch: 7) == CoreVersion(major: 9, minor: 8, patch: 7))
-        #expect(CoreVersion(major: 9, minor: 8, patch: 7) != CoreVersion(major: 9, minor: 8, patch: 6))
-        #expect(CoreVersion(major: 9, minor: 8, patch: 7) != CoreVersion(major: 9, minor: 7, patch: 7))
-        #expect(CoreVersion(major: 9, minor: 8, patch: 7) != CoreVersion(major: 8, minor: 8, patch: 7))
+        #expect(VersionCore(major: 9, minor: 8, patch: 7) == VersionCore(major: 9, minor: 8, patch: 7))
+        #expect(VersionCore(major: 9, minor: 8, patch: 7) != VersionCore(major: 9, minor: 8, patch: 6))
+        #expect(VersionCore(major: 9, minor: 8, patch: 7) != VersionCore(major: 9, minor: 7, patch: 7))
+        #expect(VersionCore(major: 9, minor: 8, patch: 7) != VersionCore(major: 8, minor: 8, patch: 7))
     }
 }

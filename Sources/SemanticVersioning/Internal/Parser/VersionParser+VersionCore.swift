@@ -3,7 +3,9 @@
 //
 
 extension VersionParser {
-    func parseCoreVersion(_ string: String) throws(VersionError) -> CoreVersion {
+    typealias VersionCore = Version.VersionCore
+
+    func parseCoreVersion(_ string: String) throws(VersionError) -> VersionCore {
         let regexp = /^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)/
 
         do {
@@ -17,7 +19,7 @@ extension VersionParser {
             let minor = UInt64(result.minor)!
             let patch = UInt64(result.patch)!
 
-            return CoreVersion(major: major, minor: minor, patch: patch)
+            return VersionCore(major: major, minor: minor, patch: patch)
         } catch {
             throw VersionError.invalidFormat
         }
