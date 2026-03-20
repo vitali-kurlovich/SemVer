@@ -16,7 +16,19 @@ public struct CoreVersion: Hashable, Sendable {
 
 extension CoreVersion: Comparable {
     public static func < (lhs: CoreVersion, rhs: CoreVersion) -> Bool {
-        lhs.major < rhs.major || lhs.minor < rhs.minor || lhs.patch < rhs.patch
+        if lhs.major < rhs.major {
+            return true
+        } else if lhs.major > rhs.major {
+            return false
+        }
+
+        if lhs.minor < rhs.minor {
+            return true
+        } else if lhs.minor > rhs.minor {
+            return false
+        }
+
+        return lhs.patch < rhs.patch
     }
 }
 

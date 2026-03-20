@@ -157,24 +157,47 @@ extension VersionTests {
 }
 
 extension VersionTests {
-    @Test("Compare", arguments: try [
-        (Version("1.0.0"), Version("2.0.0")),
-        (Version("2.0.0"), Version("2.1.0")),
-        (Version("2.1.0"), Version("2.1.1")),
-        (Version("1.0.0-alpha"), Version("1.0.0")),
-        (Version("1.0.0-alpha"), Version("1.0.0-alpha.1")),
-        (Version("1.0.0-alpha.1"), Version("1.0.0-alpha.beta")),
-        (Version("1.0.0-alpha.beta"), Version("1.0.0-beta")),
-        (Version("1.0.0-beta"), Version("1.0.0-beta.2")),
+    @Test("Compare", arguments: [
+        ("1.0.0", "2.0.0"),
+        ("2.0.0", "2.0.1"),
+        ("2.0.0", "2.1.0"),
 
-        (Version("1.0.0-beta.2"), Version("1.0.0-beta.11")),
+        ("2.1.0", "2.1.1"),
+        ("2.1.1", "2.2.0"),
 
-        (Version("1.0.0-beta.11"), Version("1.0.0-rc.1")),
-        (Version("1.0.0-rc.1"), Version("1.0.0"))
+        ("2.1.3", "2.2.0"),
+
+        ("2.1.0", "2.2.0"),
+        ("2.1.3", "2.2.0"),
+
+        ("2.0.0", "3.0.0"),
+        ("2.0.4", "3.0.0"),
+        ("2.4.0", "3.0.0"),
+        ("2.4.4", "3.0.0"),
+
+        ("1.0.0-alpha", "1.0.0"),
+        ("1.0.0-alpha", "1.0.0-alpha.1"),
+        ("1.0.0-alpha.1", "1.0.0-alpha.beta"),
+        ("1.0.0-alpha.beta", "1.0.0-beta"),
+        ("1.0.0-beta", "1.0.0-beta.2"),
+
+        ("1.0.0-beta.2", "1.0.0-beta.11"),
+
+        ("1.0.0-beta.11", "1.0.0-rc.1"),
+        ("1.0.0-rc.1", "1.0.0"),
     ])
-    func compare(_ args: (Version, Version)) throws {
-        #expect(args.0 < args.1)
-        #expect(args.1 > args.0)
+    func compare(_ args: (String, String)) throws {
+        let left = try Version(args.0)
+        let right = try Version(args.1)
+
+        #expect(left < right)
+        #expect(right > left)
+
+        #expect((left > right) == false)
+        #expect((left == right) == false)
+
+        #expect((right < left) == false)
+        #expect((right == left) == false)
     }
 }
 

@@ -44,13 +44,35 @@ extension CoreVersionTests {
 
     @Test("Compare",
           arguments: [
-              (CoreVersion(major: 1, minor: 0, patch: 0), CoreVersion(major: 2, minor: 0, patch: 0)),
-              (CoreVersion(major: 2, minor: 0, patch: 0), CoreVersion(major: 2, minor: 0, patch: 1)),
-              (CoreVersion(major: 2, minor: 0, patch: 0), CoreVersion(major: 2, minor: 1, patch: 0)),
+              ("1.0.0", "2.0.0"),
+              ("2.0.0", "2.0.1"),
+              ("2.0.0", "2.1.0"),
+
+              ("2.1.0", "2.1.1"),
+              ("2.1.1", "2.2.0"),
+
+              ("2.1.3", "2.2.0"),
+
+              ("2.1.0", "2.2.0"),
+              ("2.1.3", "2.2.0"),
+
+              ("2.0.0", "3.0.0"),
+              ("2.0.4", "3.0.0"),
+              ("2.4.0", "3.0.0"),
+              ("2.4.4", "3.0.0"),
           ])
-    func compare(_ args: (CoreVersion, CoreVersion)) {
-        #expect(args.0 < args.1)
-        #expect(args.1 > args.0)
+    func compare(_ args: (String, String)) throws {
+        let left = try CoreVersion(args.0)
+        let right = try CoreVersion(args.1)
+
+        #expect(left < right)
+        #expect(right > left)
+
+        #expect((left > right) == false)
+        #expect((left == right) == false)
+
+        #expect((right < left) == false)
+        #expect((right == left) == false)
     }
 
     @Test("Compare")
