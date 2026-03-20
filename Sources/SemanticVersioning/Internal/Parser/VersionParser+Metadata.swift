@@ -3,6 +3,7 @@
 //
 
 extension VersionParser {
+    typealias Metadata = Version.Metadata
     func parseMetadata(_ string: String) throws(VersionError) -> Metadata {
         let regexp = /([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)/
 

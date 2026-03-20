@@ -31,3 +31,10 @@ public extension Version.PreRelease {
         return string.string(from: self)
     }
 }
+
+public extension Version.Metadata {
+    func formatted() -> String {
+        let string = VersionString()
+        return string.string(from: self)
+    }
+}

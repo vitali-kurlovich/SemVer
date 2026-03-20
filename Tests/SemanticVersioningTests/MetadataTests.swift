@@ -5,6 +5,8 @@
 @testable import SemanticVersioning
 import Testing
 
+typealias Metadata = Version.Metadata
+
 @Suite("Metadata")
 struct MetadataTests {
     @Test("Metadata", arguments: [

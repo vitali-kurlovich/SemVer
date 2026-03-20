@@ -9,6 +9,7 @@ struct VersionAttributedString {
 
     typealias VersionCore = Version.VersionCore
     typealias PreRelease = Version.PreRelease
+    typealias Metadata = Version.Metadata
 }
 
 extension VersionAttributedString {
