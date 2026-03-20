@@ -5,6 +5,8 @@
 @testable import SemanticVersioning
 import Testing
 
+typealias PreRelease = Version.PreRelease
+
 @Suite("PreRelease")
 struct PreReleaseTests {
     @Test("PreRelease", arguments: [

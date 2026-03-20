@@ -6,6 +6,7 @@ struct VersionString {
     init() {}
 
     typealias VersionCore = Version.VersionCore
+    typealias PreRelease = Version.PreRelease
 }
 
 extension VersionString {

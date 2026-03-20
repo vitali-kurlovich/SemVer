@@ -24,3 +24,10 @@ public extension Version.VersionCore {
         return string.string(from: self)
     }
 }
+
+public extension Version.PreRelease {
+    func formatted() -> String {
+        let string = VersionString()
+        return string.string(from: self)
+    }
+}
